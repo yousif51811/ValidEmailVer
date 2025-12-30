@@ -7,25 +7,37 @@ namespace Emailcheck
     {
         static void Main()
         {
-            Console.WriteLine("Enter you email address:");
-            string? email = Console.ReadLine();
-            try
+            while (true)
             {
-                int atlocation = email.IndexOf("@");
-                string? Domain = email.Substring((atlocation + 1));
-                string? Username = email.Substring(0,atlocation);
-                int dotlocation = email.IndexOf(".");
-                if (dotlocation <= 0 )
+                Console.ResetColor();
+                Console.Write("Enter you email address: ");
+                string? email = Console.ReadLine();
+                try
                 {
-                    throw new Exception("Invalid Email!");
+                    int atlocation = email.IndexOf("@");
+                    string? Domain = email.Substring((atlocation + 1));
+                    string? Username = email.Substring(0,atlocation);
+                    int dotlocation = Domain.IndexOf(".");
+                    if (dotlocation <= 0 )
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        throw new Exception("Invalid Domain!");
+                        
+                    }
+                    Console.WriteLine($"\nUsername: {Username}");
+                    Console.WriteLine($"Domain: {Domain}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Valid Email");
+                    Console.ResetColor();
+                    break;
                 }
-                Console.WriteLine($"Username: {Username}");
-                Console.WriteLine($"Domain: {Domain}");
+                catch (Exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid email!");
+                }
             }
-            catch (Exception)
-            {
-                Console.WriteLine("Invalid email!");
-            }
+
         }
     } 
 }
